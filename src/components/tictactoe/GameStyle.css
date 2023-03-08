@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  display: table;
+  margin: auto;
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
+  font-family: "Roboto";
+}
+.game-board {
+  margin: 25px;
+  width: 500px;
+  height: 500px;
+  display: grid;
+  grid-gap: 25px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.game-cell {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 100px;
+  font-family: "Montserrat";
+}
+
+.game-reset {
+  border-radius: 10rem;
+  padding: 15px 20px;
+  margin-left: 220px;
+  margin-top: 25px;
+  background-color: #f62682;
+  color: white;
+  border: none;
+  scale: 1.2;
+}
+
+.game-cell.is-x {
+  color: #2cccff;
+}
+
+.game-cell.is-o {
+  color: #ff6651;
+}
+
+.game-winner {
+  margin-left: 180px;
+  padding: 25px;
+  font-size: 30px;
+  font-family: "Arial";
+}
