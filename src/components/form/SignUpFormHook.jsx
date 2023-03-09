@@ -1,5 +1,5 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { useForm, Controller, useController } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axios from "axios";
@@ -20,6 +20,11 @@ const SignUpFormHook = () => {
     handleSubmit,
     formState: { errors, isSubmitting, isValid, isDirty, dirtyFields },
     watch,
+    reset,
+    resetField,
+    setFocus,
+    setValue,
+    control,
   } = useForm({
     resolver: yupResolver(schemaValidation),
     mode: "onChange",
@@ -28,14 +33,24 @@ const SignUpFormHook = () => {
   //   console.log(isSubmitting);
   //   console.log(isValid);
   //   console.log(isDirty);
-  console.log(dirtyFields);
+  //   console.log(dirtyFields);
+  //   console.log(control);
   const watchShowAge = watch("showAge", false);
 
   const onSubmit = async (data) => {
     if (isValid) {
       console.log("Send");
-      // after succesfully submit form
+      console.log(data);
+      // after succesfully submit form (e.g: call api and post data to server)
+      // useEffect
+      // const post = await axios.post("https://jsonplaceholder.typicode.com/posts", data);
       // then reset form
+      reset({
+        firstName: "",
+        lastName: "",
+        email: "",
+      });
+      //   resetField("firstName");
     }
     // return new Promise((resolve) => {
     //   setTimeout(() => {
@@ -49,6 +64,15 @@ const SignUpFormHook = () => {
     // return response.data;
   };
 
+  // Focus firstName when component render (load)
+  useEffect(() => {
+    setFocus("firstName");
+  }, [setFocus]);
+  const handleSetDemoData = () => {
+    setValue("firstName", "Huy");
+    setValue("lastName", "Lam");
+    setValue("email", "huy@gmail.com");
+  };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -88,14 +112,19 @@ const SignUpFormHook = () => {
       </div>
 
       <div className="flex flex-col gap-2 mb-4">
-        <label htmlFor="lastName">Email Addrews</label>
-        <input
-          type="email"
+        <label htmlFor="email">Email Addrews</label>
+        {/* <MyInput
+          name="email"
           id="email"
-          placeholder="Enter Your Email Adress..."
-          className="p-4 rounded-md border border-gray-300 outline-none"
-          {...register("email")}
-        />
+          placeholder="Enter your email"
+          control={control}
+        ></MyInput> */}
+        <MyInput2
+          name="email"
+          id="email"
+          placeholder="Enter your email"
+          control={control}
+        ></MyInput2>
         {errors?.email && (
           <div className="text-red-500 text-sm">{errors.email?.message}</div>
         )}
@@ -123,8 +152,50 @@ const SignUpFormHook = () => {
           )}
         </button>
       </div>
+      <div>
+        <button
+          className="p-3 bg-green-400 rounded-lg text-white"
+          onClick={handleSetDemoData}
+        >
+          Demo Data
+        </button>
+      </div>
     </form>
   );
 };
 
+const MyInput = ({ control, ...props }) => {
+  return (
+    <Controller
+      name={props.name}
+      control={control}
+      defaultValue=""
+      render={({ field }) => (
+        <input
+          // onChange, onBlue, name, value == {field}
+          {...field}
+          {...props}
+          className="p-4 rounded-md border border-gray-300 outline-none"
+        />
+      )}
+    ></Controller>
+  );
+};
+
+// useController hook
+const MyInput2 = ({ control, ...props }) => {
+  const { field } = useController({
+    control,
+    name: props.name,
+    defaultValue: "",
+  });
+  return (
+    <input
+      // onChange, onBlue, name, value == {field}
+      {...field}
+      {...props}
+      className="p-4 rounded-md border border-gray-300 outline-none"
+    />
+  );
+};
 export default SignUpFormHook;
