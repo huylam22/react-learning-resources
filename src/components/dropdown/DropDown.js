@@ -1,5 +1,5 @@
 // import React, { useEffect, useRef, useState } from "react";
-import useClickOutside from "../hooks/useClickOutside";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const DropDown = () => {
   const { show, setShow, nodeRef } = useClickOutside();
@@ -37,7 +37,7 @@ const DropDown = () => {
     <div className="relative w-full max-w-[500px]" ref={nodeRef}>
       {/* khong can set ref neu dung e.StopPagination() */}
       <div
-        className="p-5 border border-gray-200 rounded-lg cursor-pointer w-full"
+        className="w-full p-5 border border-gray-200 rounded-lg cursor-pointer"
         onClick={() => setShow(!show)}
       >
         Selected
@@ -45,7 +45,7 @@ const DropDown = () => {
       {show && (
         <div
           // onClick={(e) => e.stopPropagation()}
-          className="absolute top-full left-0 w-full bg-white border border-gray-200 rounded-lg cursor-pointer"
+          className="absolute left-0 w-full bg-white border border-gray-200 rounded-lg cursor-pointer top-full"
         >
           <div className="p-5 cursor-pointer">Javascript</div>
           <div className="p-5 cursor-pointer">Javascript</div>

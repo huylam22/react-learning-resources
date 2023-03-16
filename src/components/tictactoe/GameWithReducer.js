@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import { calculateWinner } from "../../helpers";
 import Board from "./Board";
+// import "./GameStyle.css";
 // Initial state = object - gia tri khoi tao
 const initialState = {
   board: Array(9).fill(null),
