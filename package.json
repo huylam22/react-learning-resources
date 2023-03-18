@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-hook-form": "^7.43.5",
+    "react-router-dom": "^6.9.0",
     "react-scripts": "next",
     "react-transition-group": "^4.4.5",
     "sass": "^1.58.2",

@@ -38,13 +38,24 @@ import ToolTip from "./components/tooltip/ToolTip";
 // import Game from "./components/tictactoe/Game";
 import GameWithReducer from "./components/tictactoe/GameWithReducer";
 // import Photos from "./components/photo/Photos";
-
+// import { photoData } from "./data/photoData";
+import { Routes, Route } from "react-router-dom";
 // Chapter 8: Error Boundaries Component
 import { ErrorBoundary } from "react-error-boundary";
 import Portal from "./components/portal/Portal";
 import ModalBase from "./components/modal/ModalBase";
 import ModalAdvanced from "./components/modal/ModalAdvanced";
 import ToolTipAdvance from "./components/tooltip/ToolTipAdvance";
+import CounterContext from "./components/CounterContext";
+import HeaderMain from "./components/HeaderMain";
+import { AuthProvider } from "./context/authContext";
+import { GalleryProvider } from "./context/galleryContext";
+import PhotoList from "./components/gallery/PhotoList";
+import CartList from "./components/gallery/CartList";
+import Nav from "./components/simple-movie/Nav";
+import BlogPage from "./components/simple-movie/BlogPage";
+import ProfilePage from "./components/simple-movie/ProfilePage";
+import BlogPageDetail from "./components/simple-movie/BlogPageDetail";
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div role="alert" className="p-5 bg-red-300 rounded-lg">
@@ -69,11 +80,17 @@ function App() {
   // const firstName = "Huy";
   // const lastName = "Lam";
   // const [on, setOn] = useState(false);
+
+  // CHAPTER 9:
+  // Context: App (status: false) -> Header -> Nav -> User -> Profile lam sao de truyen status vao Profile (directly)
+  // **** Han che Props Drilling ********
+  // App(status:false) -> Profile: Context
+
   const [openModalBase, setOpenModalBase] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="flex items-center justify-center h-screen p-5">
+    <Fragment>
       {/* children: html, var */}
       {/* <YouTubeList>
         <h2>
@@ -205,7 +222,9 @@ function App() {
       // npm transition group
       */}
       {/* <Portal visible={false}> Hello 123</Portal> */}
-      <ModalBase
+
+      {/* CHAPTER 8.5: MODAL + PORTAL + TOOLTIP */}
+      {/* <ModalBase
         visible={openModalBase}
         onClose={() => {
           setOpenModalBase(false);
@@ -289,8 +308,54 @@ function App() {
       </button>
       <div className="inline-block">
         <ToolTipAdvance title="Tooltip">This is a Tooltip</ToolTipAdvance>
-      </div>
-    </div>
+      </div> */}
+
+      {/* CHAPTER 9: CONTEXT + AUTCONTEXT */}
+      {/* <CounterContext></CounterContext> */}
+      {/* <AuthProvider>
+        <GalleryProvider>
+          <HeaderMain></HeaderMain>
+          <PhotoList></PhotoList>
+          <CartList></CartList>
+        </GalleryProvider>
+      </AuthProvider> */}
+
+      {/* CHAPTER 9.1: ROUTER */}
+      {/* <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+              adipisci sapiente dicta nulla aliquid dolorum quam neque quidem
+              repellendus, alias id maxime sed! Eius explicabo iure illum,
+              repellendus facere dicta?
+            </div>
+          }
+        ></Route>
+        <Route path="/about" element={<div>This is about page</div>}></Route>
+        <Route
+          path="/movies/:movieId"
+          element={<div>This is movie details of movieId</div>}
+        >
+          {/* Slug or ID
+        </Route>
+        <Route path="/movies" element={<div>This is movies page</div>}></Route>
+      </Routes> */}
+      <Routes>
+        {/* Nested Route de dua cac element deu co Nav */}
+        <Route path="/" element={<Nav></Nav>}>
+          <Route path="/" element={<>HomePage</>}></Route>
+          <Route path="/blog" element={<BlogPage></BlogPage>}></Route>
+          <Route
+            path="/blog/:slug"
+            element={<BlogPageDetail></BlogPageDetail>}
+          ></Route>
+          <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
+        </Route>
+        <Route path="*" element={<>This is 404 Page</>}></Route>
+      </Routes>
+    </Fragment>
   );
 }
 

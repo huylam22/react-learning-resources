@@ -5,7 +5,7 @@ const Header = () => {
     const handleFixedHeader = () => {
       //   console.log("fixed");
       const header = document.getElementById("header");
-      if (window.scrollY > 0) header.classList.add("fixed");
+      if (window.scrollY > 300) header.classList.add("fixed");
       else header.classList.remove("fixed");
     };
     window.addEventListener("scroll", handleFixedHeader);
@@ -13,7 +13,7 @@ const Header = () => {
       window.removeEventListener("scroll", handleFixedHeader);
     };
   }, []);
-  return <div className="p-5 w-full bg-black" id="header"></div>;
+  return <div className="w-full p-5 bg-black" id="header"></div>;
 };
 
 export default Header;
